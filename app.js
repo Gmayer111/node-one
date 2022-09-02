@@ -1,18 +1,16 @@
 const express = require('express')
 const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
 const sequelize = require('./src/db/sequelize')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 
 // Création d'un middlewaire pour logger l'url / ici le module morgan permet de le faire
 // Nous pouvons chainer les middleware
 app
     .use(favicon(__dirname + '/favicon.ico'))
-    .use(morgan('dev'))
     // Nous permet de parser toutes nos chaines en json
     .use(bodyParser.json())
 
@@ -25,6 +23,7 @@ require('./src/routes/findPokemonByPk')(app)
 require('./src/routes/createPokemon')(app)
 require('./src/routes/updatePokemon')(app)
 require('./src/routes/deletePokemon')(app)
+require('./src/routes/login')(app)
 
 // On ajoute la gestion des erreurs 404
 app.use(({res}) => {
