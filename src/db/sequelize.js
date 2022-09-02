@@ -15,7 +15,7 @@ const Pokemon = PokemonModel(sequelize, DataTypes)
 
 const initDb = () => {
     // Synchronisation de la bdd
-    return sequelize.sync({force: true}).then(_ => {
+    return sequelize.sync().then(_ => {
         pokemons.map(pokemon => {
             Pokemon.create({
                 name: pokemon.name,
@@ -26,7 +26,8 @@ const initDb = () => {
                 types: pokemon.types
                 // .then correspond à une promesse car requête asynchrone
                 // toJSON permet de débugger les données envoyées
-        }).then(bulbizarre => console.log(bulbizarre.toJSON()))
+        })
+        .then(pokemon => console.log(pokemon.toJSON()))
     })
         console.log('La base de données a bien été initialisée !');
     })

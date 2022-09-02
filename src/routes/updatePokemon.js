@@ -1,4 +1,5 @@
 const { Pokemon } = require('../db/sequelize')
+const { ValidationError } = require('sequelize')
   
 module.exports = (app) => {
   app.put('/api/pokemons/:id', (req, res) => {
@@ -20,8 +21,15 @@ module.exports = (app) => {
       })
     })
     .catch(error => {
+      // Cette érreur retourne des érreurs de validation / faute du client
+      if (error instanceof ValidationError) {
+        return res.status(400).json({ message: error.message, data: error })
+      }
+      if (error instanceof UniqueConstraintError) {
+        return res.status(400).json({ message: error.message, data: error })
+      }
       const message = `Le pokémon n'a pas pu être récupéré. Réessayez dans quelques instants.`
-      res.statut(500).json({ message, data: error})
+      res.status(500).json({ message, data: error})
     })
   })
 } 

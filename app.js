@@ -1,7 +1,7 @@
 const express = require('express')
+const favicon = require('serve-favicon')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const favicon = require('serve-favicon')
 const sequelize = require('./src/db/sequelize')
 
 const app = express()
