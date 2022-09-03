@@ -15,6 +15,10 @@ app
     .use(bodyParser.json())
 
  sequelize.initDb()
+
+ app.get('/', (req, res) => {
+    res.json('Hello Heroku 👋')
+ })
  
 // Ici nous placerons nos futurs points de terminaison
 // (app) à la fin est un raccourscis de syntaxe
