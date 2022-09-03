@@ -4,17 +4,17 @@ const bodyParser = require('body-parser')
 const sequelize = require('./src/db/sequelize')
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000
 
 
 // Création d'un middlewaire pour logger l'url / ici le module morgan permet de le faire
 // Nous pouvons chainer les middleware
 app
-    .use(favicon(__dirname + '/favicon.ico'))
-    // Nous permet de parser toutes nos chaines en json
-    .use(bodyParser.json())
+.use(favicon(__dirname + '/favicon.ico'))
+// Nous permet de parser toutes nos chaines en json
+.use(bodyParser.json())
 
- sequelize.initDb()
+sequelize.initDb()
 
  app.get('/', (req, res) => {
     res.json('Hello Heroku 👋')
